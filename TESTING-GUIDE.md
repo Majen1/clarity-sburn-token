@@ -1,70 +1,76 @@
 # Testing the sBurn Token Contract on Testnet
 
-## Contract Owner Issue Resolution
+## Contract Information
 
-The sBurn token contract was deployed with the contract owner address hardcoded as:
-`ST1D5T4V67KDJ96GA1BR5728AJ2HDBWZH63Y0WTXG`
+The sBurn token contract has been successfully deployed with a dedicated owner wallet:
 
-However, the mnemonic in the `.env` file generates a different address:
-`ST1HJBP42BAG96ZN0VF6N4ZET178PN3DHJKWRJKKY`
+**Contract Owner Address:** `ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8`  
+**Contract Address:** `ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8.sburn-owner-v1`  
+**Transaction ID:** `4d9f8c26f74b7a9ce7c6a0b357225c64dc9afefb76b0e4acfd05c3ef9c114be9`
 
-To properly test the contract, we need to use the private key associated with the hardcoded owner address.
+The contract uses a dedicated owner wallet with credentials stored in the `.env` file for secure operations.
 
 ## Testing Steps
 
 ### 1. Verify Contract Deployment
 
-The contract has been successfully deployed to testnet with transaction ID:
-`9262ef31030d30225323017bb166506386eadcc6dbde33177abe9613615abf4b`
+The contract has been successfully deployed to testnet and can be accessed at:
+`ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8.sburn-owner-v1`
 
-The contract can be accessed at:
-`ST1HJBP42BAG96ZN0VF6N4ZET178PN3DHJKWRJKKY.sburn-v2`
-
-### 2. Minting Tokens
-
-To mint tokens, use the `mint-tokens-owner.cjs` script which prompts for the private key of the contract owner:
-
+Verify deployment status:
 ```bash
-node scripts/mint-tokens-owner.cjs
+node scripts/check-deployment.cjs
 ```
 
-You will need to enter the private key for the contract owner address `ST1D5T4V67KDJ96GA1BR5728AJ2HDBWZH63Y0WTXG`.
+### 2. Check Owner Balance
 
-### 3. Transferring Tokens
-
-After minting, you can test transfers with the burn mechanism using the `owner-transfer.cjs` script:
-
+Check the current balance of the contract owner:
 ```bash
-node scripts/owner-transfer.cjs
+node scripts/check-owner-balance.cjs
 ```
 
-This script will:
-1. Prompt for the private key of the contract owner
-2. Ask for the recipient address
-3. Ask for the amount to transfer
-4. Execute the transfer transaction
+### 3. Running Comprehensive Tests
 
-### 4. Verifying Results
-
-After each transaction, verify:
-
-1. **Token Balances**: Check the balance of the owner and recipient addresses
-2. **Burn Mechanism**: Confirm that 0.15% of tokens were burned during transfer
-3. **Transaction Status**: Check the transaction ID in the Stacks Explorer
-
-### 5. Running Automated Tests
-
-To run the comprehensive test suite:
-
+Execute the full test suite:
 ```bash
-node scripts/run-tests.cjs
+node scripts/comprehensive-test.cjs
 ```
 
-This will execute all tests defined in `tests/testnet-tests.md` and generate a report in `tests/testnet-results.md`.
+### 4. Demonstrating Contract Features
+
+To showcase the contract's burn mechanism:
+```bash
+node scripts/demonstrate-contract.cjs
+```
+
+This script demonstrates:
+- Token transfers with automatic burning (0.15% burn rate)
+- Fee collection mechanism (0.1% to fee recipient)
+- Minimum transfer amount enforcement (1000 tokens)
+
+### 5. Manual Testing with Interactive Scripts
+
+For manual testing, you can use:
+```bash
+node scripts/deploy-with-owner.cjs
+```
+
+This script handles:
+1. Contract deployment with the dedicated owner wallet
+2. Automatic balance verification
+3. Transaction confirmation
+
+## Contract Features Verified
+
+✅ **Burn Mechanism**: 0.15% of transferred tokens are burned  
+✅ **Fee Structure**: 0.25% total fee (0.15% burned, 0.1% to fee recipient)  
+✅ **Minimum Transfer**: 1000 tokens minimum transfer amount enforced  
+✅ **Owner Operations**: Only contract owner can mint tokens  
+✅ **SIP-010 Compliance**: Full SIP-010 fungible token standard implementation
 
 ## Important Notes
 
-1. **Contract Owner**: All mint operations must be performed by the contract owner (`ST1D5T4V67KDJ96GA1BR5728AJ2HDBWZH63Y0WTXG`).
+1. **Contract Owner**: All mint operations are performed by the dedicated owner (`ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8`).
 
 2. **Fee Structure**: Each transfer incurs a 0.25% fee, of which:
    - 0.10% goes to the fee recipient
@@ -72,7 +78,7 @@ This will execute all tests defined in `tests/testnet-tests.md` and generate a r
 
 3. **Minimum Transfer Amount**: The contract enforces a minimum transfer amount of 1000 units (0.00001 tokens with 8 decimal places).
 
-4. **Address Derivation**: The mnemonic in the `.env` file generates the address `ST1HJBP42BAG96ZN0VF6N4ZET178PN3DHJKWRJKKY`, but the contract owner is hardcoded as `ST1D5T4V67KDJ96GA1BR5728AJ2HDBWZH63Y0WTXG`.
+4. **Environment Configuration**: The contract uses a dedicated owner wallet with credentials stored in `.env` for secure operations.
 
 ## Troubleshooting
 

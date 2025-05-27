@@ -10,7 +10,7 @@ plan:
       transactions:
         - contract-publish:
             contract-name: sburn
-            expected-sender: ST1Y0JZ5NGPR6E2S5GGWN3XFJ9SZ6R8K4M0QQ1V8X
+            expected-sender: ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8
             cost: 17580
             path: contracts/sburn.clar
             anchor-block-only: true
