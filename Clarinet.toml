@@ -1,0 +1,49 @@
+[project]
+name = "sburn"
+description = "A fungible token implementation following the SIP-010 standard"
+authors = ["Majen"]
+telemetry = false
+clarity_version = 2
+
+# Declare the testnet SIP-010 trait as a project requirement
+[[project.requirements]]
+contract_id = "ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.sip-010-trait-ft-standard"
+
+costs_version = 2
+
+# Local alias for the trait, path to your local copy
+[contracts.trait-sip010]
+path = "contracts/trait-sip010.clar" # Assuming you have a local copy for reference/IDE
+clarity_version = 2
+epoch = "2.1"
+
+[contracts.sburn]
+path = "contracts/sburn.clar"
+clarity_version = 2
+epoch = "2.1"
+# depends_on is for local compilation; for testnet, sburn.clar directly calls the testnet trait
+# If trait-sip010 is only for local reference and not part of simnet deployment, depends_on might not be needed here
+# or could be depends_on = ["trait-sip010"] if you want local checks to pass by compiling the local trait first.
+# For testnet deployment, this 'depends_on' is less critical as sburn.clar uses the absolute testnet address.
+
+[network]
+name = "testnet" # Default network for commands like `clarinet integrate` if not specified
+node_rpc_address = "https://stacks-node-api.testnet.stacks.co"
+
+[accounts.deployer]
+mnemonic = { env = "STACKS_DEPLOYER_MNEMONIC" }
+
+[repl.analysis]
+passes = ["check_checker"]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = true
+trusted_caller = false
+callee_filter = false
+
+[project.deployments]
+clarinet = true # Enables Clarinet's deployment tracking
+testnet = { plan = "./deployments/new-testnet-plan.yaml" }
+public_key = "03af3b86c9bfa2a75b63ee24d3d2c3a5b68e366360b989a5be71f86fa96adfb5f7"
+

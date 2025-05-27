@@ -1,0 +1,18 @@
+---
+id: 0
+name: Testnet Deployment
+network: testnet
+stacks-node: "https://stacks-node-api.testnet.stacks.co"
+bitcoin-node: "https://blockstream.info/testnet/api"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: sburn
+            expected-sender: ST1Y0JZ5NGPR6E2S5GGWN3XFJ9SZ6R8K4M0QQ1V8X
+            cost: 17580
+            path: contracts/sburn.clar
+            anchor-block-only: true
+            clarity-version: 2
+            # No epoch specified to avoid any errors
