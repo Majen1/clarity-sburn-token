@@ -2,6 +2,7 @@
 ;; Written by Majen 
 ;; Created: 2025
 
+;; For testnet deployment, use the deployed testnet trait
 (use-trait ft-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.sip-010-trait-ft-standard.sip-010-trait)
 (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.sip-010-trait-ft-standard.sip-010-trait)
 

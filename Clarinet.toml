@@ -13,18 +13,15 @@ costs_version = 2
 
 # Local alias for the trait, path to your local copy
 [contracts.trait-sip010]
-path = "contracts/trait-sip010.clar" # Assuming you have a local copy for reference/IDE
+path = "contracts/trait-sip010.clar" # Local copy for development
 clarity_version = 2
-epoch = "2.1"
+epoch = "2.5"
 
 [contracts.sburn]
 path = "contracts/sburn.clar"
 clarity_version = 2
-epoch = "2.1"
-# depends_on is for local compilation; for testnet, sburn.clar directly calls the testnet trait
-# If trait-sip010 is only for local reference and not part of simnet deployment, depends_on might not be needed here
-# or could be depends_on = ["trait-sip010"] if you want local checks to pass by compiling the local trait first.
-# For testnet deployment, this 'depends_on' is less critical as sburn.clar uses the absolute testnet address.
+epoch = "2.5"
+depends_on = ["trait-sip010"]
 
 [network]
 name = "testnet" # Default network for commands like `clarinet integrate` if not specified

@@ -9,10 +9,9 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: sburn
+            contract-name: sburn-v3
             expected-sender: ST1QJXK8F74X07Z67YVK7J221QMM6KRS3D93ZAXZ8
-            cost: 17580
+            cost: 18000
             path: contracts/sburn.clar
-            anchor-block-only: true
             clarity-version: 2
-            # No epoch specified to avoid any errors
+            anchor-block-only: false

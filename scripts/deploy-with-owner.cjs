@@ -16,6 +16,9 @@ async function deployWithOwnerWallet() {
   try {
     const network = new StacksTestnet({ url: 'https://stacks-node-api.testnet.stacks.co' });
     
+    // Get contract name from command line argument or use default
+    const contractName = process.argv[2] || 'sburn-owner-v1';
+    
     // Use the new contract owner private key
     const privateKeyHex = process.env.CONTRACT_OWNER_PRIVATE_KEY;
     const expectedOwnerAddress = process.env.CONTRACT_OWNER_ADDRESS;
@@ -28,7 +31,7 @@ async function deployWithOwnerWallet() {
 
     console.log('🚀 Deploying sBurn contract with dedicated owner wallet...');
     console.log('='.repeat(60));
-    console.log(`📋 Contract: sburn-v5`);
+    console.log(`📋 Contract: ${contractName}`);
     console.log(`👤 Owner: ${expectedOwnerAddress}`);
     
     // Verify the private key matches the expected address
@@ -49,7 +52,7 @@ async function deployWithOwnerWallet() {
     
     // Create deployment transaction
     const txOptions = {
-      contractName: 'sburn-owner-v1',
+      contractName: contractName,
       codeBody: contractSource,
       senderKey: privateKeyHex,
       network: network,
@@ -78,7 +81,7 @@ async function deployWithOwnerWallet() {
       console.log("✅ Contract deployed successfully!");
       console.log(`📋 Transaction ID: ${result.txid}`);
       console.log(`🔍 View: https://explorer.stacks.co/txid/${result.txid}?chain=testnet`);
-      console.log(`📄 Contract: ${expectedOwnerAddress}.sburn-owner-v1`);
+      console.log(`📄 Contract: ${expectedOwnerAddress}.${contractName}`);
       
       console.log('\n🎉 Next Steps:');
       console.log('1. Wait 5-10 minutes for deployment confirmation');
